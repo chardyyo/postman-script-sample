@@ -1,0 +1,20 @@
+pm.sendRequest({
+    url: pm.collectionVariables.get("baseUrl")+"/api/v1/auth",
+    method: 'POST',
+    header: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: {
+        mode: 'raw',
+        raw: JSON.stringify({
+            email:  pm.collectionVariables.get("NAME"),
+            password: pm.collectionVariables.get("PSW")
+        })
+    }
+},
+    (err, res) => {
+        // Set BEARERTOKEN
+        pm.globals.set("bearerToken", res.json().jwtToken)
+        console.log(res.json());
+});
